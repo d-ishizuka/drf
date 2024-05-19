@@ -2,7 +2,7 @@ from typing import Any
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.generic import TemplateView
-from .forms import HelloForm
+from .forms import HelloForm, SessionForm
 
 class HelloView(TemplateView):
     
@@ -10,16 +10,16 @@ class HelloView(TemplateView):
         self.params = {
             'title': 'Hello',
             'message': 'your data:',
-            'form': HelloForm(),
+            'form': SessionForm(),
         }
 
     def get(self, request):
+        self.params['result'] = request.session.get('last_msg', 'no message')
         return render(request, 'hello/index.html', self.params)
 
     def post(self, request):
-        msg = 'あなたは、<b>' + request.POST['name'] + \
-            '(' + request.POST['age'] + ') </b> さんです。<br>' + \
-            'メールアドレスは <b>' + request.POST['mail'] + '</b> ですね。'
-        self.params['message'] = msg
-        self.params['form'] = HelloForm(request.POST)
+        ses = request.POST['session']
+        self.params['result'] = 'you typed: "' + ses + '".'
+        request.session['last_msg'] = ses
+        self.params['form'] = SessionForm(request.POST)
         return render(request, 'hello/index.html', self.params)

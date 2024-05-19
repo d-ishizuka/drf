@@ -13,3 +13,7 @@ class HelloForm(forms.Form):
           label='age', \
           widget=forms.NumberInput(attrs={'class': 'form-control'})
         )
+
+class SessionForm(forms.Form):
+    session = forms.CharField(label="session", required=False, \
+                              widget=forms.TextInput(attrs={'class': 'form-control'}))
