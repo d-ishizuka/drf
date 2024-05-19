@@ -8,7 +8,7 @@
 </head>
 <body class="container">
   <h1 class="display-4 text-primary mb-4">{{title}}</h1>
-  <p class="h5">{{message|safe}}</p>
+  <p class="h5">{{result}}</p>
   <form action="{% url 'index' %}" method="post">
     {% csrf_token %}
     {{ form.as_p }}
