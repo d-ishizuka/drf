@@ -17,3 +17,11 @@ def next(request):
         'goto': 'index',
     }
     return render(request, 'hello/index.html', params)
+
+def form(request):
+    msg = request.POST['msg']
+    params = {
+        'title': 'Hello Form',
+        'msg': 'Hello ' + msg + '!!',
+    }
+    return render(request, 'hello/index.html', params)

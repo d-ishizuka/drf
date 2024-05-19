@@ -9,6 +9,11 @@
 <body class="container">
   <h1 class="display-4 text-primary mb-4">{{title}}</h1>
   <p class="h5">{{msg}}</p>
-  <p class="h6"><a href="{% url goto %}">{{goto}}</a></p>
+  <form action="{% url 'form' %}" method="post">
+    {% csrf_token %}
+    <label for="msg" class="form-label">message:</label>
+    <input id="msg" type="text" name="msg" class="form-control">
+    <input type="submit" value="submit" class="btn btn-primary mt-2">
+  </form>
 </body>
 </html>
